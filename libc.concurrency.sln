@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libc.concurrency", "libc.concurrency.csproj", "{AD31B8D8-EC83-4EEA-A53A-6F6F31DC6D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libc.concurrency", "libc.concurrency\libc.concurrency.csproj", "{E75E9F91-EEC3-4F28-8627-B8B3A9E611F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AD31B8D8-EC83-4EEA-A53A-6F6F31DC6D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD31B8D8-EC83-4EEA-A53A-6F6F31DC6D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD31B8D8-EC83-4EEA-A53A-6F6F31DC6D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD31B8D8-EC83-4EEA-A53A-6F6F31DC6D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E75E9F91-EEC3-4F28-8627-B8B3A9E611F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E75E9F91-EEC3-4F28-8627-B8B3A9E611F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E75E9F91-EEC3-4F28-8627-B8B3A9E611F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E75E9F91-EEC3-4F28-8627-B8B3A9E611F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
