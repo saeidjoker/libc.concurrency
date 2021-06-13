@@ -1,109 +1,181 @@
 ﻿using System.Collections.Generic;
-namespace libc.concurrency {
-    public class QueueThreadSafe<T> {
+
+namespace libc.concurrency
+{
+    public class QueueThreadSafe<T>
+    {
         private readonly object lck;
         private readonly Queue<T> q;
-        public QueueThreadSafe() {
+
+        public QueueThreadSafe()
+        {
             q = new Queue<T>();
             lck = new object();
         }
-        public int Count {
-            get {
+
+        public int Count
+        {
+            get
+            {
                 var cnt = -1;
-                lock (lck) {
-                    try {
+
+                lock (lck)
+                {
+                    try
+                    {
                         cnt = q.Count;
-                    } catch {
+                    }
+                    catch
+                    {
                         // ignored
                     }
                 }
+
                 return cnt;
             }
         }
-        public Queue<T> Duplicate() {
+
+        public Queue<T> Duplicate()
+        {
             var res = new Queue<T>();
-            lock (lck) {
-                try {
+
+            lock (lck)
+            {
+                try
+                {
                     foreach (var item in q) res.Enqueue(item);
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
+
             return res;
         }
-        public void Clear() {
-            lock (lck) {
-                try {
+
+        public void Clear()
+        {
+            lock (lck)
+            {
+                try
+                {
                     q.Clear();
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
         }
-        public bool TryDequeue(out T item) {
-            lock (lck) {
-                try {
-                    if (q.Count > 0) {
+
+        public bool TryDequeue(out T item)
+        {
+            lock (lck)
+            {
+                try
+                {
+                    if (q.Count > 0)
+                    {
                         item = q.Dequeue();
+
                         return true;
                     }
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
+
             item = default;
+
             return false;
         }
-        public List<T> DequeueAll() {
+
+        public List<T> DequeueAll()
+        {
             var res = new List<T>();
-            lock (lck) {
-                try {
+
+            lock (lck)
+            {
+                try
+                {
                     while (q.Count > 0) res.Add(q.Dequeue());
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
+
             return res;
         }
-        public List<T> DequeueMany(int N) {
+
+        public List<T> DequeueMany(int N)
+        {
             var res = new List<T>();
-            lock (lck) {
-                try {
-                    for (var i = 0; i < N; i++) {
+
+            lock (lck)
+            {
+                try
+                {
+                    for (var i = 0; i < N; i++)
+                    {
                         T b;
+
                         if (TryDequeue(out b))
                             res.Add(b);
                         else
                             break;
                     }
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
+
             return res;
         }
-        public void Enqueue(T item) {
-            lock (lck) {
-                try {
+
+        public void Enqueue(T item)
+        {
+            lock (lck)
+            {
+                try
+                {
                     q.Enqueue(item);
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
         }
-        public void EnqueueMany(IEnumerable<T> items) {
-            lock (lck) {
-                try {
+
+        public void EnqueueMany(IEnumerable<T> items)
+        {
+            lock (lck)
+            {
+                try
+                {
                     foreach (var item in items) q.Enqueue(item);
-                } catch {
+                }
+                catch
+                {
                     // ignored
                 }
             }
         }
-        public bool Any() {
+
+        public bool Any()
+        {
             return Count > 0;
         }
-        ~QueueThreadSafe() {
+
+        ~QueueThreadSafe()
+        {
             Clear();
         }
     }

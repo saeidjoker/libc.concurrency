@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Timers;
-namespace libc.concurrency {
+
+namespace libc.concurrency
+{
     /// <summary>
     ///     Provides Debounce() and Throttle() methods.
     ///     Use these methods to ensure that events aren't handled too frequently.
@@ -10,9 +12,11 @@ namespace libc.concurrency {
     ///     in which no other pending event has fired. Only the last event in the
     ///     sequence is fired.
     /// </summary>
-    public class Debounce {
+    public class Debounce
+    {
         private Timer timer;
         private DateTime timerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
+
         /// <summary>
         ///     Debounce an event by resetting the event timeout every time the event is
         ///     fired. The behavior is that the Action passed is fired only after events
@@ -26,7 +30,8 @@ namespace libc.concurrency {
         /// <param name="interval">Timeout in Milliseconds</param>
         /// <param name="action">Action<object> to fire when debounced event fires</object></param>
         /// <param name="param">optional parameter</param>
-        public void Invoke(int interval, Action<object> action, object param = null) {
+        public void Invoke(int interval, Action<object> action, object param = null)
+        {
             // kill pending timer and pending ticks
             timer?.Stop();
             timer = null;
@@ -35,13 +40,17 @@ namespace libc.concurrency {
             // resets the timeout. Action only fires after timeout has fully
             // elapsed without other events firing in between
             timer = new Timer(interval);
-            timer.Elapsed += (sender, args) => {
+
+            timer.Elapsed += (sender, args) =>
+            {
                 if (timer == null)
                     return;
+
                 timer?.Stop();
                 timer = null;
                 action.Invoke(param);
             };
+
             timer.Start();
         }
     }
